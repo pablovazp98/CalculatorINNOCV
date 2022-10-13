@@ -9,13 +9,13 @@ const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.'];
 const specials = ['C', '=', '+/-', 'DEL'];
 
 export function Calculator() {
-	const [result, setResult] = useState(0);
+	const [result, setResult] = useState<number | string>(0);
 	const [operation, setOperation] = useState('');
 
 	const manageResult = () => {
-		let result =
+		let result: number | string =
 			Math.round((eval(operation) + Number.EPSILON) * 1e10) / 1e10;
-		console.log(typeof result, result.toFixed());
+		if (isNaN(result)) result = "0 can't be divided by 0";
 		setResult(result);
 	};
 
@@ -83,14 +83,20 @@ export function Calculator() {
 }
 
 interface DisplayProps {
-	result: number;
+	result: number | string;
 	operation: string;
 }
 
 const Display = ({ result, operation }: DisplayProps) => (
 	<div className='display'>
 		<p className='operation'>{operation}</p>
-		<p className='result'>{result}</p>
+		<p
+			className={`result ${
+				typeof result == 'string' ? 'result-error' : ''
+			}`}
+		>
+			{result}
+		</p>
 	</div>
 );
 

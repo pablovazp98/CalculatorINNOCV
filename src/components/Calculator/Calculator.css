@@ -1,5 +1,5 @@
 .container {
-	margin: 1rem auto 0;
+	margin: 1rem auto;
 	width: 75%;
 }
 
@@ -22,6 +22,11 @@
 
 .display .result {
 	font-size: 30px;
+	color: black;
+}
+
+.display .result-error {
+	color: red;
 }
 
 .buttons {
